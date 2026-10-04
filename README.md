@@ -8,9 +8,9 @@ next one; the dots below jump straight to a screen.
 
 | Screen | What it shows |
 |---|---|
+| `big` | CO2 as large as it goes, framed in the color of its level |
 | `co2` | CO2 and a tall history chart |
 | `co2_env` | CO2, temperature, humidity and a shorter chart |
-| `big` | CO2 as large as it goes, framed in the color of its level |
 
 The chart is rebuilt from Home Assistant's history, so it survives a restart
 of the monitor.
@@ -48,7 +48,7 @@ entity: sensor.living_room_co2
 | `entity` | (required) | The monitor's CO2 sensor. |
 | `temperature_entity` | found on its own | Temperature sensor. Left empty, the card uses the one of the same device. |
 | `humidity_entity` | found on its own | Humidity sensor, found in the same way. |
-| `screens` | all three | Which screens to show, in order: `co2`, `co2_env`, `big`. |
+| `screens` | all three | Which screens to show: `big`, `co2`, `co2_env`. They keep the monitor's order. |
 | `rotate_seconds` | `10` | Seconds per screen. `0` stops the carousel. |
 | `chart_bars` | `40` | Bars in the chart: 20, 25, 40, 50 or 100. |
 | `chart_bar_seconds` | `20` | Seconds per bar: 20, 30, 60, 120 or 300. |
