@@ -51,10 +51,16 @@ entity: sensor.living_room_co2
 | `screens` | all three | Which screens to show: `big`, `co2`, `co2_env`. They keep the monitor's order. |
 | `rotate_seconds` | `10` | Seconds per screen. `0` stops the carousel. |
 | `chart_bars` | `40` | Bars in the chart: 20, 25, 40, 50 or 100. |
-| `chart_bar_seconds` | `20` | Seconds per bar: 20, 30, 60, 120 or 300. |
+| `chart_bar_seconds` | `auto` | Seconds per bar: `auto`, 20, 30, 60, 120 or 300. |
 
-Set `chart_bars` and `chart_bar_seconds` to the values on the monitor's own
-settings page, and the card draws the same chart as the device.
+`auto` takes the seconds per bar from the monitor, which reports them as the
+`chart_bar_s` attribute of its CO2 sensor (firmware 0.10 and later). The
+monitor publishes one reading per bar, so this is what makes the card's chart
+match the display. With older firmware, set it to the value on the monitor's
+settings page; the card falls back to 20 otherwise.
+
+The number of bars is the card's own choice: more bars than the display shows
+a longer stretch of history.
 
 A single screen, with no carousel:
 

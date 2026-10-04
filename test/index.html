@@ -31,7 +31,7 @@
   const hass = {
     language: "en",
     states: {
-      "sensor.salon_co2": { state: String(ppm), attributes: { device_class: "carbon_dioxide",
+      "sensor.salon_co2": { state: String(ppm), attributes: { device_class: "carbon_dioxide", chart_bar_s: 20,
                             unit_of_measurement: "ppm" }, last_updated: new Date(now).toISOString() },
       "sensor.salon_temperature": { state: "23.4", attributes: { device_class: "temperature",
                             unit_of_measurement: "°C" }, last_updated: new Date(now).toISOString() },
