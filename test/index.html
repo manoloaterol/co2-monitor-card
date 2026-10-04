@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CO2 Monitor Card preview</title>
+<style>
+  body { margin: 24px; background: #1c1c1c; color: #e1e1e1; font: 14px sans-serif;
+         --primary-text-color: #e1e1e1; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, 300px); gap: 24px; }
+  h2 { font-size: 13px; font-weight: normal; margin: 0 0 6px; color: #999; }
+</style>
+</head>
+<body>
+<!-- A stand-in for Home Assistant: open with ?ppm=1234 to try other levels. -->
+<div class="grid" id="grid"></div>
+<script src="../co2-monitor-card.js"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  const ppm = Number(q.get("ppm") || 1180);
+  const now = Date.now();
+
+  // 40 bars of 20 s climbing towards the current value, with a gap
+  const history = [];
+  for (let i = 0; i < 60; i++) {
+    const t = (now - (60 - i) * 20000) / 1000;
+    const v = Math.round(ppm * (0.55 + 0.45 * (i / 59)) + 40 * Math.sin(i / 3));
+    history.push({ s: i === 30 ? "unavailable" : String(v), lu: t });
+  }
+
+  const hass = {
+    language: "en",
+    states: {
+      "sensor.salon_co2": { state: String(ppm), attributes: { device_class: "carbon_dioxide",
+                            unit_of_measurement: "ppm" }, last_updated: new Date(now).toISOString() },
+      "sensor.salon_temperature": { state: "23.4", attributes: { device_class: "temperature",
+                            unit_of_measurement: "°C" }, last_updated: new Date(now).toISOString() },
+      "sensor.salon_humidity": { state: "48.6", attributes: { device_class: "humidity",
+                            unit_of_measurement: "%" }, last_updated: new Date(now).toISOString() },
+    },
+    entities: {
+      "sensor.salon_co2": { device_id: "dev1" },
+      "sensor.salon_temperature": { device_id: "dev1" },
+      "sensor.salon_humidity": { device_id: "dev1" },
+    },
+    callWS: async () => ({ "sensor.salon_co2": history }),
+  };
+
+  const cards = [
+    ["co2", { screens: ["co2"] }],
+    ["co2_env", { screens: ["co2_env"] }],
+    ["big", { screens: ["big"] }],
+    ["carousel", { rotate_seconds: 4 }],
+  ];
+  for (const [title, extra] of cards) {
+    const box = document.createElement("div");
+    box.innerHTML = `<h2>${title}</h2>`;
+    const card = document.createElement("co2-monitor-card");
+    card.setConfig({ entity: "sensor.salon_co2", ...extra });
+    box.appendChild(card);
+    document.getElementById("grid").appendChild(box);
+    card.hass = hass;
+  }
+</script>
+</body>
+</html>
