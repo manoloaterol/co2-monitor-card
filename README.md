@@ -19,6 +19,10 @@ of the monitor.
 
 ### HACS
 
+[HACS](https://hacs.xyz) does not come with Home Assistant. If you do not have
+it, install it first with the [official guide](https://hacs.xyz/docs/use/), or
+use the manual installation below.
+
 1. In HACS, open the menu (⋮) and choose **Custom repositories**.
 2. Add `https://github.com/manoloaterol/co2-monitor-card` with the type **Dashboard**.
 3. Find **CO2 Monitor Card** in HACS and download it.
