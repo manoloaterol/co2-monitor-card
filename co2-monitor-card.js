@@ -669,7 +669,7 @@ if (!customElements.get("co2-monitor-card")) {
     name: "CO2 Monitor",
     description: "The screens of the CO2 monitor, with its color scale and chart.",
     preview: true,
-    documentationURL: "https://github.com/OWNER/co2-monitor-card",
+    documentationURL: "https://github.com/manoloaterol/co2-monitor-card",
   });
   console.info(`%c CO2-MONITOR-CARD %c ${VERSION} `,
                "color:#000;background:#76b043;font-weight:bold", "color:#76b043");

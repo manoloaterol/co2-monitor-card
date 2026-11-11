@@ -20,7 +20,7 @@ of the monitor.
 ### HACS
 
 1. In HACS, open the menu (⋮) and choose **Custom repositories**.
-2. Add `https://github.com/OWNER/co2-monitor-card` with the type **Dashboard**.
+2. Add `https://github.com/manoloaterol/co2-monitor-card` with the type **Dashboard**.
 3. Find **CO2 Monitor Card** in HACS and download it.
 4. Reload the browser.
 
